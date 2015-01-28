@@ -1,0 +1,29 @@
+<h1>Private URL shortener</h1>
+<% unless session[:user].nil? %>
+Hi, <a href='/users/<%=session[:user].id%>'><%= session[:user].full_name %> </a>
+<%end%>
+<form action="/login" method="post">
+EMAIL:    <input type="text" name="user[email]"><br>
+PASSWORD: <input type="password" name="user[password]">
+  <input type="submit" value="login">
+</form>
+
+<br>
+<a href="/signup">SIGN-UP!</a>
+<a href="/logout">LOG-OUT!</a>
+
+<p>Type in your (long) URL below!</p>
+<form action="/urls" method="post">
+  <input type="text" name="url[original]">
+  <input type="submit" value="SHORTEN">
+</form>
+
+<br>
+<% unless @url.nil? %>
+  <% @url.each do |link| %>
+    <%= link.original %><br>
+    <a href='http://127.0.0.1:9393/<%=link.short%>'>http://127.0.0.1:9393/<%=link.short%></a><br>Click count:<%= link.click_count %>
+    <br><br>
+  <% end %>
+<% end %>
+

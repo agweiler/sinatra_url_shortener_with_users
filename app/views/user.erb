@@ -1,0 +1,24 @@
+
+<p> Hi, you've logged in successfully </p>
+
+<p>Type in your (long) URL below!</p>
+<form action="<%= request.path_info %>" method="post">
+  <input type="text" name="url[original]">
+  <input type="submit" value="SHORTEN">
+</form>
+
+<br>
+<% unless @url.nil? %>
+  <% @url.each do |link| %>
+    <%= link.original %><br>
+    <a href='http://127.0.0.1:9393/<%=link.short%>'>http://127.0.0.1:9393/<%=link.short%>
+    </a>
+    <br>Click count:<%= link.click_count %><br><br>
+  <% end %>
+<% end %>
+
+
+<a href="/logout">LOG-OUT!</a>
+<a href="/">HOME</a>
+
+
